@@ -4,7 +4,7 @@ A simple calculator program based on lexical analysis and syntactic analysis.
 
 Operator support: '+', '-', '*', '/', '(', ')'.
 
-Operand support: integers(including negative intergers).
+Operand support: integers(including negative integers).
 
 ## License
 
