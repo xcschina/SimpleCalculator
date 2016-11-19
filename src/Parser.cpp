@@ -113,6 +113,8 @@ void Parser::factor() {
                 throw std::runtime_error("Parser.factor(): syntax error, require ')'");
             }
             readNext();
+        } else {
+            throw std::runtime_error("Parser.factor(): syntax error");
         }
     } else if (lookahead->tag == Token::Tag::NUM) {
         auto num = dynamic_cast<Number*>(lookahead);

@@ -2,9 +2,9 @@
 
 A simple calculator program based on lexical analysis and syntactic analysis.
 
-Operator support: '+', '-', '*', '/', '(', ')'.
+Operator support: +, -, *, /, (, )
 
-Operand support: integers(including negative).
+Operand support: integers(including negative)
 
 ## Getting Started
 
