@@ -22,62 +22,70 @@ Run [Lexer::test()](./src/Lexer.cpp) to test the lexer.
 
 Run [Parser::test()](./src/Parser.cpp) to test the parser.
 
-Grammar of converting infix to postfix:
+**Grammar:**
 
-* CFG(Context-free grammar):
+CFG(Context-free grammar):
 
-    expr -> expr + A
-          | expr - A
-          | A
+```
+expr -> expr + A
+      | expr - A
+      | A
 
-    A -> A * B
-       | A / B
-       | B
+A -> A * B
+   | A / B
+   | B
 
-    B -> + B
-       | - B
-       | factor
+B -> + B
+   | - B
+   | factor
 
-    factor -> ( expr )
-            | num
+factor -> ( expr )
+        | num
+```
 
-* SDT(Syntax-directed translation scheme):
+SDT(Syntax-directed translation scheme):
 
-    expr -> expr + A  { appendToPostfix('+'); }
-          | expr - A  { appendToPostfix('-'); }
-          | A
+```
+expr -> expr + A  { appendToPostfix('+'); }
+      | expr - A  { appendToPostfix('-'); }
+      | A
 
-    A -> A * B  { appendToPostfix('*'); }
-       | A / B  { appendToPostfix('/'); }
-       | B
+A -> A * B  { appendToPostfix('*'); }
+   | A / B  { appendToPostfix('/'); }
+   | B
 
-    B -> + B  { appendToPostfix('@'); }
-       | - B  { appendToPostfix('#'); }
-       | factor
+B -> + B  { appendToPostfix('@'); }
+   | - B  { appendToPostfix('#'); }
+   | factor
 
-    factor -> ( expr )
-            | num  { appendToPostfix(num); }
+factor -> ( expr )
+        | num  { appendToPostfix(num); }
+```
 
-* Remove left-recursive:
+Remove left-recursive:
 
-    expr -> A restA
+```
+expr -> A restA
 
-    restA -> + A  { appendToPostfix('+'); } restA
-           | - A  { appendToPostfix('-'); } restA
-           | e
+restA -> + A  { appendToPostfix('+'); } restA
+       | - A  { appendToPostfix('-'); } restA
+       | e
 
-    A -> B restB
+A -> B restB
 
-    restB -> * B  { appendToPostfix('*'); } restB
-           | / B  { appendToPostfix('/'); } restB
-           | e
-           
-    B -> + B  { appendToPostfix('@'); }
-       | - B  { appendToPostfix('#'); }
-       | factor
+restB -> * B  { appendToPostfix('*'); } restB
+       | / B  { appendToPostfix('/'); } restB
+       | e
 
-    factor -> ( expr )
-            | num  { appendToPostfix(num); }
+B -> + B  { appendToPostfix('@'); }
+   | - B  { appendToPostfix('#'); }
+   | factor
+
+factor -> ( expr )
+        | num  { appendToPostfix(num); }
+```
+
+**Notice that in the postfix expression, unary operator '@' and '#' denotes the positive operator '+' and the negative operator '-' respectively.**
 
 ## License
 
