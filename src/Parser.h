@@ -49,5 +49,10 @@ private:
     Read next token and store it in lookahead field.
     */
     void readNext();
+
+    /*
+    Throw an excepetion indicating syntax error.
+    */
+    void syntaxErr() const;
 };
 
