@@ -5,10 +5,24 @@ using std::string;
 
 Parser::Parser() : lookahead(nullptr) {}
 
-string Parser::scan() {
+Parser::~Parser() {
+    reset();
+}
+
+const std::list<Token*>& Parser::scan() {
+    reset();
     readNext();
     expr();
-    return stream.str();
+    return postfixTokens;
+}
+
+
+void Parser::reset() {
+    for (Token *token : postfixTokens) {
+        delete token;
+    }
+    postfixTokens.clear();
+    lookahead = nullptr;
 }
 
 void Parser::expr() {
@@ -28,12 +42,12 @@ void Parser::restA() {
             if (oper->val == '+') {
                 readNext();
                 A();
-                stream << "+ ";
+                postfixTokens.push_back(new Operator('+'));
                 continue;
             } else if (oper->val == '-') {
                 readNext();
                 A();
-                stream << "- ";
+                postfixTokens.push_back(new Operator('-'));
                 continue;
             }
         }
@@ -50,12 +64,12 @@ void Parser::B() {
         if (oper->val == '+') {
             readNext();
             B();
-            stream << "@ ";
+            postfixTokens.push_back(new Operator('@'));
             return;
         } else if (oper->val == '-') {
             readNext();
             B();
-            stream << "# ";
+            postfixTokens.push_back(new Operator('#'));
             return;
         }
     }
@@ -69,12 +83,12 @@ void Parser::restB() {
             if (oper->val == '*') {
                 readNext();
                 B();
-                stream << "* ";
+                postfixTokens.push_back(new Operator('*'));
                 continue;
             } else if (oper->val == '/') {
                 readNext();
                 B();
-                stream << "/ ";
+                postfixTokens.push_back(new Operator('/'));
                 continue;
             }
         }
@@ -102,7 +116,7 @@ void Parser::factor() {
         }
     } else if (lookahead->tag == Token::Tag::NUM) {
         auto num = dynamic_cast<Number*>(lookahead);
-        stream << num->val << " ";
+        postfixTokens.push_back(new Number(num->val));
         readNext();
     }
 }
@@ -116,8 +130,25 @@ void Parser::test() {
     Parser parser;
     printf("Input an infix expression: ");
     try {
-        printf("Postfix expression: %s\n", parser.scan().c_str());
+        int cnt = 1;
+        auto postfixTokens = parser.scan();
+        printf("\nPostfix tokens:\n");
+        for (const auto &token : postfixTokens) {
+            printf("Token #%d:\n", cnt++);
+            switch (token->tag) {
+                case Token::Tag::NUM:
+                    printf(" Type: NUMBER\n");
+                    printf("Value: %d\n\n", (dynamic_cast<Number*>(token))->val);
+                    break;
+                case Token::Tag::OPERATOR:
+                    printf(" Type: OPERATOR\n");
+                    printf("Value: %c\n\n", (dynamic_cast<Operator*>(token))->val);
+                    break;
+                default:
+                    break;
+            }
+        }
     } catch (const std::runtime_error &e) {
-        printf("runtime_error: %s\n", e.what());
+        printf("Runtime error: %s\n", e.what());
     }
 }

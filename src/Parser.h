@@ -2,6 +2,7 @@
 
 #include "Lexer.h"
 #include <sstream>
+#include <list>
 
 /*
 Syntax parser to convert an infix expression to a postfix expression.
@@ -9,14 +10,20 @@ Syntax parser to convert an infix expression to a postfix expression.
 class Parser {
 public:
     Parser();
+    ~Parser();
 
     /*
     Convert an infix expression from the input stream to its postfix expression.
 
-    @return the postfix expression
+    @return the token list of the postfix expression
     @throw runtime_error if conversion fails
     */
-    std::string scan();
+    const std::list<Token*>& scan();
+
+    /*
+    Clean memory resources.
+    */
+    void reset();
 
     /*
     Test the function of the class.
@@ -26,7 +33,7 @@ public:
 private:
     Lexer lexer;
     Token* lookahead;
-    std::ostringstream stream;
+    std::list<Token*> postfixTokens;
 
     /*
     Derivation function according to SDT.

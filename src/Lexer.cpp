@@ -7,7 +7,7 @@ Lexer::Lexer() : cur(' ') {}
 
 Token* Lexer::scan() {
     while (cur == '\n' || cur == ' ' || cur == '\t') {
-        // New line character means the end of input
+        // New-line character denotes the end of input
         if (cur == '\n' || scanf("%c", &cur) != 1) {
             return nullptr;
         }

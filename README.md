@@ -6,6 +6,39 @@ Operator support: '+', '-', '*', '/', '(', ')'.
 
 Operand support: integers(including negative).
 
+## Getting Started
+
+### Compile and run
+
+```bash
+$ make
+$ make run
+```
+
+### Some test samples
+
+```
+  Infix: - 8 -(20/4+(3 - 5) *20)+3+ 4+88 /8-1+3
+Postfix: -8 20 4 / 3 5 - 20 * + - 3 + 4 + 88 8 / + 1 - 3 +
+ Answer: 47
+
+  Infix: ( 60 /(2*(3+4)+(5- 2)/ 3)-1-1) * 8-(20/4+(3-5) *20+3+ (- 4) +88/8-(2-3))
+Postfix: 60 2 3 4 + * 5 2 - 3 / + / 1 - 1 - 8 * 20 4 / 3 5 - 20 * + 3 + -4 + 88 8 / + 2 3 - - -
+ Answer: 40
+
+  Infix: (6*((5   +((2+3)  *8))+ 3))
+Postfix: 6 5 2 3 + 8 * + 3 + *
+ Answer: 288
+
+  Infix: (-3) *(- 20+(-(2*(3+5))- (8+7)))
+Postfix: 3 # 20 # 2 3 5 + * # 8 7 + - + *
+ Answer: 153
+
+  Infix: - 3 *( -1+(-(1 -2)) )
+Postfix: 3 # 1 # 1 2 - # + *
+ Answer: 0
+```
+
 ## Algorithm Description
 
 ### Lexical analysis
@@ -86,6 +119,10 @@ factor -> ( expr )
 ```
 
 **Notice that in the postfix expression, unary operator '@' and '#' denotes the positive operator '+' and the negative operator '-' respectively.**
+
+### Calculate postfix expression
+
+see [postfix algorithm](https://en.wikipedia.org/wiki/Reverse_Polish_notation).
 
 ## License
 
