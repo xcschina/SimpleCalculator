@@ -41,7 +41,7 @@ Postfix: 3 # 1 # 1 2 - # + *
 
 ## Algorithm Description
 
-### Lexical analysis
+### 1. Lexical analysis
 
 Token declaration: [Token.h](./src/Token.h) [Token.cpp](./src/Token.cpp)
 
@@ -49,7 +49,7 @@ Token declaration: [Token.h](./src/Token.h) [Token.cpp](./src/Token.cpp)
 
 Run [Lexer::test()](./src/Lexer.cpp) to test the lexer.
 
-### Syntactic analysis
+### 2. Syntactic analysis
 
 [Parser.scan()](./src/Parser.cpp): convert an infix expression from the input stream to its postfix expression.
 
@@ -120,9 +120,9 @@ factor -> ( expr )
 
 **Notice that in the postfix expression, unary operator '@' and '#' denotes the positive operator '+' and the negative operator '-' respectively.**
 
-### Calculate postfix expression
+### 3. Calculate postfix expression
 
-see [postfix algorithm](https://en.wikipedia.org/wiki/Reverse_Polish_notation).
+Refer to [postfix algorithm](https://en.wikipedia.org/wiki/Reverse_Polish_notation).
 
 ## License
 
