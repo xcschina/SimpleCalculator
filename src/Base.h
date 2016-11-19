@@ -2,9 +2,6 @@
 #ifndef BASE_H
 #define BASE_H
 
-#define NS_BEGIN namespace sl {
-#define NS_END   }
-
 /*
 Memory leaks check
 (available in Microsoft Visual C++ complier)

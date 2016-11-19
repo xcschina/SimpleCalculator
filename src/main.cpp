@@ -1,7 +1,13 @@
-#include "Lexer.h"
+#include "Parser.h"
 
-int main() { 
-    Lexer::test();
+int main() {
+    {
+        // Test lexical analyzer
+        //Lexer::test();
+
+        // Test syntactic analyzer
+        Parser::test();
+    }
     checkMemoryLeaks();
     return 0;
 }
